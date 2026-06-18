@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Oscarina Parra — Asesora de seguros de vida y salud</title>
+<meta name="description" content="Primero entiendes. Luego decides. Asesora licenciada de seguros de vida y salud para familias latinas en EE.UU. Conversamos con calma y eliges con tranquilidad." />
+<style>
+/* ============================================================
+   FONTS — Cormorant Garamond (display) + DM Sans (body)
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap');
+
+/* ============================================================
+   COLOR TOKENS
+   ============================================================ */
+:root {
+  --crema:        #FAF8F4;
+  --lino:         #F5F0E8;
+  --taupe:        #C2AF96;
+  --taupe-claro:  #D8CCBC;
+  --gris-profundo:#3A3630;
+  --zafiro:       #1C5C8A;
+  --zafiro-hover: #174D74;
+  --zafiro-pale:  #EAF0F5;
+  --dorado:       #B5892A;
+  --vinotinto:    #6B1A2A;
+  --tinta:        #1A1614;
+
+  --surface-page:      var(--crema);
+  --surface-alt:       var(--lino);
+  --surface-card:      #FFFFFF;
+  --surface-pale-blue: var(--zafiro-pale);
+  --surface-dark:      var(--gris-profundo);
+  --surface-ink:       var(--tinta);
+
+  --text-body:      #4A453E;
+  --text-heading:   var(--tinta);
+  --text-muted:     #847C70;
+  --text-on-dark:   #F1ECE4;
+  --text-on-dark-muted: #B8AFA2;
+  --text-eyebrow:   var(--dorado);
+  --text-accent:    var(--zafiro);
+  --text-gold:      var(--dorado);
+
+  --border-soft:    var(--taupe-claro);
+  --border-hair:    #E7DFD3;
+  --line-decor:     var(--vinotinto);
+
+  --cta-primary-bg:   var(--zafiro);
+  --cta-primary-fg:   #FFFFFF;
+  --cta-secondary-bg: var(--tinta);
+  --cta-secondary-fg: #F1ECE4;
+  --cta-ghost-fg:     var(--tinta);
+  --cta-ghost-border: var(--taupe);
+  --cta-ghost-on-dark-border: rgba(255,255,255,0.45);
+  --cta-ghost-on-dark-fg: #FFFFFF;
+
+  --hero-overlay: linear-gradient(180deg, rgba(26,22,20,0.30) 0%, rgba(26,22,20,0.55) 55%, rgba(26,22,20,0.80) 100%);
+  --star: var(--dorado);
+}
+
+/* ============================================================
+   TYPOGRAPHY TOKENS
+   ============================================================ */
+:root {
+  --font-display: 'Cormorant Garamond', 'Cormorant', Georgia, 'Times New Roman', serif;
+  --font-body:    'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --display-weight:   600;
+  --h2-weight:        500;
+  --phrase-weight:    300;
+
+  --body-light:   300;
+  --body-regular: 400;
+  --body-medium:  500;
+
+  --fs-display-xl: 80px;
+  --fs-display-l:  64px;
+  --fs-display-m:  52px;
+  --fs-h2:         50px;
+  --fs-h3:         30px;
+  --fs-h4:         24px;
+
+  --fs-lead:    20px;
+  --fs-body:    17px;
+  --fs-small:   15px;
+  --fs-eyebrow: 13px;
+  --fs-micro:   12px;
+
+  --fs-phrase: 21px;
+
+  --lh-display: 1.04;
+  --lh-h2:      1.1;
+  --lh-body:    1.65;
+  --lh-tight:   1.25;
+
+  --ls-display:  -0.01em;
+  --ls-eyebrow:  0.22em;
+  --ls-button:   0.04em;
+  --ls-nav:      0.02em;
+}
+
+/* ============================================================
+   SPACING, RADII, MOTION TOKENS
+   ============================================================ */
+:root {
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-5:24px;
+  --space-6:32px; --space-7:48px; --space-8:64px; --space-9:96px; --space-10:128px; --space-11:160px;
+
+  --section-pad-y: 120px;
+  --section-pad-y-lg: 160px;
+  --container-max: 1200px;
+  --container-narrow: 760px;
+  --gutter: 24px;
+
+  --radius-pill: 100px;
+  --radius-card: 4px;
+  --radius-sm:   3px;
+  --radius-image: 2px;
+
+  --line-decor-w: 2px;
+  --line-decor-len: 56px;
+  --border-width: 1px;
+
+  --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-fast: 160ms;
+  --dur: 280ms;
+  --dur-slow: 520ms;
+
+  --shadow-card: 0 18px 50px -28px rgba(26,22,20,0.30);
+  --shadow-soft: 0 8px 28px -18px rgba(26,22,20,0.22);
+}
+
+/* ============================================================
+   BASE LAYER
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: var(--body-regular);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--text-body);
+  background: var(--surface-page);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--text-heading);
+  margin: 0;
+  letter-spacing: var(--ls-display);
+  line-height: var(--lh-h2);
+  text-wrap: balance;
+}
+h1 { font-weight: var(--display-weight); font-size: var(--fs-display-m); line-height: var(--lh-display); }
+h2 { font-weight: var(--h2-weight); font-size: var(--fs-h2); }
+h3 { font-weight: var(--h2-weight); font-size: var(--fs-h3); }
+h4 { font-weight: var(--display-weight); font-size: var(--fs-h4); }
+p { margin: 0 0 1em; text-wrap: pretty; }
+a { color: var(--text-accent); text-decoration: none; transition: opacity var(--dur-fast) var(--ease-soft); }
+a:hover { opacity: 0.7; }
+
+.phrase {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: var(--phrase-weight);
+  font-size: var(--fs-phrase);
+  line-height: var(--lh-tight);
+  color: var(--text-muted);
+}
+.line-decor {
+  display: block;
+  width: var(--line-decor-len);
+  height: var(--line-decor-w);
+  background: var(--line-decor);
+  border: 0;
+}
+::selection { background: var(--zafiro); color: #fff; }
+
+/* ============================================================
+   COMPONENT CLASSES
+   ============================================================ */
+/* ---------- BUTTON ---------- */
+.op-btn {
+  font-family: var(--font-body);
+  font-weight: var(--body-medium);
+  font-size: var(--fs-small);
+  letter-spacing: var(--ls-button);
+  line-height: 1;
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: var(--space-2);
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  padding: 16px 32px;
+  cursor: pointer; text-decoration: none; white-space: nowrap; box-shadow: none;
+  transition: background-color var(--dur) var(--ease-soft),
+              border-color var(--dur) var(--ease-soft),
+              color var(--dur) var(--ease-soft),
+              opacity var(--dur) var(--ease-soft);
+}
+.op-btn:focus-visible { outline: 2px solid var(--zafiro); outline-offset: 3px; }
+.op-btn--sm { padding: 11px 22px; font-size: var(--fs-micro); }
+.op-btn--lg { padding: 19px 40px; font-size: var(--fs-body); }
+.op-btn--block { display: flex; width: 100%; }
+.op-btn--primary { background: var(--cta-primary-bg); color: var(--cta-primary-fg); }
+.op-btn--primary:hover { background: var(--zafiro-hover); opacity: 1; }
+.op-btn--secondary { background: var(--cta-secondary-bg); color: var(--cta-secondary-fg); }
+.op-btn--secondary:hover { background: #2c2723; opacity: 1; }
+.op-btn--ghost { background: transparent; color: var(--cta-ghost-fg); border-color: var(--cta-ghost-border); }
+.op-btn--ghost:hover { background: rgba(194,175,150,0.14); opacity: 1; }
+.op-btn--ghost-dark { background: transparent; color: var(--cta-ghost-on-dark-fg); border-color: var(--cta-ghost-on-dark-border); }
+.op-btn--ghost-dark:hover { background: rgba(255,255,255,0.10); border-color: rgba(255,255,255,0.7); opacity: 1; }
+.op-btn:disabled, .op-btn[aria-disabled="true"] { opacity: 0.45; cursor: not-allowed; }
+
+/* ---------- INPUT / TEXTAREA ---------- */
+.op-input, .op-textarea {
+  font-family: var(--font-body);
+  font-weight: var(--body-regular);
+  font-size: var(--fs-body);
+  color: var(--text-heading);
+  background: var(--surface-card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px; width: 100%;
+  transition: border-color var(--dur) var(--ease-soft), box-shadow var(--dur) var(--ease-soft);
+}
+.op-input::placeholder, .op-textarea::placeholder { color: var(--text-muted); }
+.op-input:focus, .op-textarea:focus {
+  outline: none; border-color: var(--zafiro); box-shadow: 0 0 0 3px rgba(28,92,138,0.12);
+}
+.op-textarea { resize: vertical; min-height: 120px; line-height: var(--lh-body); }
+.op-input--on-dark, .op-textarea--on-dark {
+  background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.22); color: var(--text-on-dark);
+}
+.op-input--on-dark::placeholder, .op-textarea--on-dark::placeholder { color: var(--text-on-dark-muted); }
+
+/* ---------- BADGE ---------- */
+.op-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-body); font-weight: var(--body-medium);
+  font-size: var(--fs-micro); letter-spacing: var(--ls-nav);
+  padding: 6px 14px; border-radius: var(--radius-pill); line-height: 1;
+}
+.op-badge--neutral { background: var(--lino); color: var(--text-muted); border: 1px solid var(--border-soft); }
+.op-badge--sapphire { background: var(--zafiro-pale); color: var(--zafiro); }
+.op-badge--gold { background: rgba(181,137,42,0.12); color: var(--dorado); }
+.op-badge--on-dark { background: rgba(255,255,255,0.08); color: var(--text-on-dark); }
+
+/* ---------- STAR RATING ---------- */
+.op-stars { display: inline-flex; gap: 3px; color: var(--star); line-height: 1; }
+.op-stars svg { width: 18px; height: 18px; display: block; }
+
+/* ---------- CARD ---------- */
+.op-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-hair);
+  border-radius: var(--radius-card);
+  padding: var(--space-7);
+}
+.op-card--top-line { border-top: var(--line-decor-w) solid var(--line-decor); }
+.op-card--pale { background: var(--surface-pale-blue); border-color: transparent; }
+.op-card--lift { box-shadow: var(--shadow-card); border-color: transparent; }
+
+/* ---------- EYEBROW ---------- */
+.op-eyebrow {
+  display: inline-flex; align-items: center; gap: var(--space-3);
+  font-family: var(--font-body); font-weight: var(--body-medium);
+  font-size: var(--fs-eyebrow); letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase; color: var(--text-eyebrow);
+}
+.op-eyebrow--on-dark { color: var(--dorado); }
+
+/* ---------- SECTION HEADING ---------- */
+.op-secthead { display: flex; flex-direction: column; gap: var(--space-4); }
+.op-secthead__title { font-family: var(--font-display); font-weight: var(--h2-weight); font-size: var(--fs-h2); line-height: var(--lh-h2); color: var(--text-heading); letter-spacing: var(--ls-display); margin: 0; }
+.op-secthead--on-dark .op-secthead__title { color: var(--text-on-dark); }
+
+/* ---------- STAT ---------- */
+.op-stat { display: flex; flex-direction: column; gap: var(--space-2); }
+.op-stat__value { font-family: var(--font-display); font-weight: var(--display-weight); font-size: 64px; line-height: 1; color: var(--text-gold); letter-spacing: var(--ls-display); }
+.op-stat__label { font-family: var(--font-body); font-weight: var(--body-light); font-size: var(--fs-small); color: var(--text-on-dark-muted); letter-spacing: 0.02em; }
+
+/* ---------- NUMBERED SERVICE ---------- */
+.op-service { display: grid; grid-template-columns: auto 1fr; gap: var(--space-5); padding-block: var(--space-6); border-top: 1px solid var(--border-soft); position: relative; }
+.op-service::before { content: ""; position: absolute; top: -1px; left: 0; width: 40px; height: var(--line-decor-w); background: var(--line-decor); }
+.op-service__num { font-family: var(--font-display); font-weight: var(--phrase-weight); font-style: italic; font-size: var(--fs-h3); color: var(--dorado); line-height: 1; }
+.op-service__body { display: flex; flex-direction: column; gap: var(--space-2); }
+.op-service__title { font-family: var(--font-display); font-weight: var(--h2-weight); font-size: var(--fs-h4); color: var(--text-heading); margin: 0; }
+.op-service__desc { font-family: var(--font-body); font-weight: var(--body-light); font-size: var(--fs-body); color: var(--text-body); margin: 0; }
+
+/* ---------- TESTIMONIAL ---------- */
+.op-quote { display: flex; flex-direction: column; gap: var(--space-5); }
+.op-quote__mark { font-family: var(--font-display); font-weight: var(--display-weight); font-size: 92px; line-height: 0.6; color: var(--dorado); height: 44px; }
+.op-quote__text { font-family: var(--font-display); font-weight: var(--body-light); font-style: italic; font-size: var(--fs-h4); line-height: 1.45; color: var(--text-heading); margin: 0; }
+.op-quote__author { display: flex; align-items: center; gap: var(--space-3); }
+.op-quote__name { font-family: var(--font-body); font-weight: var(--body-medium); font-size: var(--fs-small); color: var(--text-heading); }
+.op-quote__meta { font-family: var(--font-body); font-weight: var(--body-light); font-size: var(--fs-micro); color: var(--text-muted); }
+
+/* ============================================================
+   LANDING-PAGE LAYOUT (kit.css)
+   ============================================================ */
+.lp { background: var(--crema); overflow-x: hidden; }
+.lp-container { max-width: 1180px; margin-inline: auto; padding-inline: 40px; }
+.lp-narrow { max-width: 720px; margin-inline: auto; padding-inline: 40px; }
+
+/* NAVBAR */
+.nav { position: sticky; top: 0; z-index: 50; background: rgba(250,248,244,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-hair); }
+.nav__inner { display: flex; align-items: center; justify-content: space-between; height: 78px; }
+.nav__logo { display: flex; flex-direction: column; gap: 5px; line-height: 1; }
+.nav__logo:hover { opacity: 1; }
+.nav__logo-name { font-family: var(--font-display); font-weight: 600; font-size: 23px; letter-spacing: -0.01em; color: var(--tinta); }
+.nav__logo-line { width: 38px; height: 2px; background: var(--vinotinto); }
+.nav__logo-tag { font-family: var(--font-body); font-weight: 400; font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--text-muted); }
+.nav__links { display: flex; align-items: center; gap: 34px; }
+.nav__link { font-family: var(--font-body); font-weight: 400; font-size: 15px; color: var(--text-body); cursor: pointer; }
+.nav__link:hover { color: var(--tinta); opacity: 1; }
+
+/* HERO */
+.hero { position: relative; display: grid; grid-template-columns: 1.02fr 0.98fr; min-height: 66vh; align-items: stretch;
+  background: radial-gradient(150% 130% at 16% 18%, #25719F 0%, #1C5C8A 44%, #123B5B 100%); color: #fff; overflow: hidden; }
+.hero__bg { position: relative; grid-column: 2; grid-row: 1; background-color: #E8E6E1;
+  background-image: url('hero.jpg'); background-size: cover; background-position: right center; background-repeat: no-repeat; }
+.hero__bg::after { content:""; position:absolute; inset:0; background:
+  linear-gradient(90deg, #1C5C8A 0%, rgba(28,92,138,0.55) 12%, rgba(28,92,138,0) 34%); }
+.hero__inner { position: relative; z-index: 2; grid-column: 1; grid-row: 1; align-self: center;
+  padding: 96px 56px 96px max(40px, calc((100vw - 1180px) / 2 + 40px)); }
+.hero .op-eyebrow { color: #F0D391; font-size: 15.5px; letter-spacing: 0.14em; font-weight: 600; }
+.hero .op-eyebrow .line-decor { background: #F0D391; width: 32px; height: 2px; }
+.hero h1 { color: #fff; font-size: clamp(46px, 5.2vw, 72px); font-weight: 600; line-height: 1.02; }
+.hero h1 em { font-style: italic; color: #ECCB7C; }
+.hero__lead { font-family: var(--font-body); font-style: normal; font-weight: 400; font-size: 20px; line-height: 1.6; color: rgba(255,255,255,0.92); margin: 22px 0 36px; max-width: 480px; }
+.hero__cta { display: flex; gap: 16px; flex-wrap: wrap; }
+.hero .op-btn--primary { background: #fff; color: var(--zafiro); }
+.hero .op-btn--primary:hover { background: #EAF0F5; }
+.hero .op-btn--ghost { color: #fff; border-color: rgba(255,255,255,0.5); }
+.hero .op-btn--ghost:hover { background: rgba(255,255,255,0.12); border-color: #fff; }
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero__bg { grid-column: 1; grid-row: 1; min-height: 320px; }
+  .hero__bg::after { background: linear-gradient(0deg, #1C5C8A 0%, rgba(28,92,138,0) 30%); }
+  .hero__inner { grid-column: 1; grid-row: 2; padding: 48px 24px 56px; }
+}
+
+/* SECTION SHELL */
+.sec { padding-block: 120px; }
+.sec--alt { background: var(--lino); }
+.sec--pale { background: radial-gradient(120% 140% at 50% 0%, #21689B 0%, #1C5C8A 45%, #154A70 100%); color: #fff; }
+.sec--pale .op-secthead__title { color: #fff; }
+.sec--pale .op-eyebrow { color: #ECCB7C; }
+.sec--pale .phrase { color: rgba(255,255,255,0.82); }
+.sec--dark { background: var(--gris-profundo); color: var(--text-on-dark); }
+.sec--ink { background: var(--tinta); color: var(--text-on-dark); }
+
+/* LEAD MAGNET */
+.lead { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 72px; align-items: center; }
+.lead__player { background: var(--surface-card); border: 1px solid var(--border-hair); border-radius: 6px; padding: 30px; box-shadow: var(--shadow-card); }
+.lead__play-row { display: flex; align-items: center; gap: 18px; }
+.lead__play { width: 58px; height: 58px; border-radius: 100px; background: var(--zafiro); color: #fff; display: flex; align-items: center; justify-content: center; flex: none; cursor: pointer; border: 0; transition: background var(--dur); }
+.lead__play:hover { background: var(--zafiro-hover); }
+.lead__wave { flex: 1; height: 38px; display: flex; align-items: center; gap: 3px; }
+.lead__wave i { flex: 1; background: var(--taupe-claro); border-radius: 2px; }
+.lead__form { display: flex; flex-direction: column; gap: 14px; margin-top: 24px; }
+
+/* AUTHORITY BAND */
+.authority { display: flex; align-items: center; justify-content: center; gap: 18px; flex-wrap: wrap; text-align: center; }
+.authority__states { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 22px; }
+
+/* STATS */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+
+/* ABOUT */
+.about { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.about__giant { font-family: var(--font-display); font-weight: 600; font-size: clamp(62px, 7.8vw, 98px); line-height: 0.96; letter-spacing: -0.015em; color: var(--tinta); margin: 0 0 24px; }
+.about__giant span { color: var(--dorado); }
+.about__photo { position: relative; }
+.about__bar { position: absolute; left: -22px; top: 8px; bottom: 8px; width: 2px; background: var(--vinotinto); }
+.photo-ph { background-color: #D8CCBC;
+  background-image: linear-gradient(150deg, #E7DDCE 0%, #D8CCBC 55%, #C2AF96 100%);
+  border-radius: 2px; display: flex; align-items: flex-end; justify-content: flex-start;
+  position: relative; overflow: hidden; }
+/* Real portrait layered on top; if oscarina.jpg is missing the gradient shows through. */
+.photo-ph--img { background-image: url('oscarina.jpg'); background-size: cover; background-position: center top; background-repeat: no-repeat; }
+.photo-ph--img::after { content: none; }
+.photo-ph::after { content: attr(data-label); position: absolute; left: 16px; bottom: 14px; font-family: var(--font-body); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: rgba(58,54,48,0.5); }
+
+/* SERVICES */
+.services { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 64px; align-items: start; }
+.services__list { display: flex; flex-direction: column; }
+
+/* WHY ME */
+.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+.why-card h3 { font-family: var(--font-display); font-weight: 500; font-size: 25px; margin: 16px 0 10px; }
+.why-card p { margin: 0; font-weight: 300; color: var(--text-body); }
+.why-card__icon { color: var(--zafiro); }
+
+/* TESTIMONIALS */
+.tgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; margin-top: 56px; }
+
+/* CONTACT */
+.contact { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+.contact__list { display: flex; flex-direction: column; gap: 22px; margin-top: 28px; }
+.contact__item { display: flex; align-items: center; gap: 16px; }
+.contact__item-ic { width: 44px; height: 44px; border-radius: 100px; background: rgba(255,255,255,0.07); display: flex; align-items: center; justify-content: center; color: var(--taupe); flex: none; }
+.contact__item-label { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--text-on-dark-muted); }
+.contact__item-val { font-size: 16px; color: #fff; font-weight: 400; }
+.contact__form { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10); border-radius: 8px; padding: 32px; display: flex; flex-direction: column; gap: 16px; }
+
+/* FOOTER */
+.footer { background: #0E0B0A; color: var(--text-on-dark); padding-block: 80px 40px; }
+.footer__phrase { font-family: var(--font-display); font-style: italic; font-weight: 300; font-size: clamp(28px, 4vw, 44px); line-height: 1.2; color: #F1ECE4; max-width: 720px; }
+.footer__line { display:block; width: 56px; height: 2px; background: var(--vinotinto); margin: 28px 0 40px; }
+.footer__bottom { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.10); padding-top: 28px; }
+.footer__social { display: flex; gap: 14px; }
+.footer__social a { width: 42px; height: 42px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.18); display: flex; align-items: center; justify-content: center; color: var(--text-on-dark-muted); transition: all var(--dur); }
+.footer__social a:hover { border-color: rgba(255,255,255,0.5); color: #fff; opacity: 1; }
+.footer__copy { font-size: 13px; color: var(--text-on-dark-muted); }
+
+.sec--dark .op-eyebrow, .sec--ink .op-eyebrow { color: var(--dorado); }
+/* Legible italic phrase on dark surfaces */
+.sec--dark .phrase, .sec--ink .phrase { color: rgba(241,236,228,0.82); }
+
+@media (max-width: 900px) {
+  .lp-container, .lp-narrow { padding-inline: 24px; }
+  .lead, .about, .services, .contact { grid-template-columns: 1fr; gap: 40px; }
+  .stats { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  .why-grid, .tgrid { grid-template-columns: 1fr; }
+  .nav__links { display: none; }
+  .sec { padding-block: 84px; }
+}
+</style>
+</head>
+<body>
+<div class="lp">
+
+  <!-- NAVBAR -->
+  <header class="nav">
+    <div class="lp-container nav__inner">
+      <a class="nav__logo" href="#top" aria-label="Oscarina Parra — Health and Life Insurance">
+        <span class="nav__logo-name">Oscarina Parra</span>
+        <span class="nav__logo-line" aria-hidden="true"></span>
+        <span class="nav__logo-tag">Health and Life Insurance</span>
+      </a>
+      <nav class="nav__links">
+        <a class="nav__link" href="#soy-oscarina">Soy Oscarina</a>
+        <a class="nav__link" href="#servicios">Servicios</a>
+        <a class="nav__link" href="#por-que">Por qué elegirme</a>
+        <a class="nav__link" href="#testimonios">Testimonios</a>
+      </nav>
+      <a class="op-btn op-btn--primary op-btn--sm" href="#contacto">Conversemos</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="hero__bg" aria-hidden="true"></div>
+    <div class="hero__inner">
+      <span class="op-eyebrow"><span class="line-decor" style="width:28px" aria-hidden="true"></span>Asesora de seguros de vida y salud</span>
+      <h1 style="margin-top:22px">Primero entiendes.<br />Luego <em>decides.</em></h1>
+      <p class="hero__lead">Te ayudo a entender y elegir tu seguro de vida y salud. Conversamos con calma y eliges lo que te dé tranquilidad.</p>
+      <div class="hero__cta">
+        <a class="op-btn op-btn--primary op-btn--lg" href="https://wa.me/17867247558" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.4-1.48-.89-.8-1.49-1.78-1.66-2.08-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.42.25-.7.25-1.29.18-1.42-.07-.13-.27-.2-.56-.35zM12 3.5a8.5 8.5 0 0 0-7.3 12.86L3.6 20.4l4.16-1.09A8.5 8.5 0 1 0 12 3.5z"/></svg>
+          Escríbeme por WhatsApp
+        </a>
+        <a class="op-btn op-btn--ghost op-btn--lg" href="#contacto">Agenda una charla</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHATSAPP CTA -->
+  <section class="sec" id="conversemos">
+    <div class="lp-narrow" style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px">
+      <span class="op-eyebrow"><span class="line-decor" style="width:28px" aria-hidden="true"></span>Hablemos</span>
+      <h2 class="op-secthead__title" style="margin-top:6px">¿Tienes dudas? Escríbeme directo</h2>
+      <span class="phrase" style="margin-bottom:10px">Te respondo personalmente por WhatsApp, cuando a ti te quede bien.</span>
+      <div style="margin-top:18px">
+        <a class="op-btn op-btn--primary op-btn--lg" href="https://wa.me/17867247558" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.4-1.48-.89-.8-1.49-1.78-1.66-2.08-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.42.25-.7.25-1.29.18-1.42-.07-.13-.27-.2-.56-.35zM12 3.5a8.5 8.5 0 0 0-7.3 12.86L3.6 20.4l4.16-1.09A8.5 8.5 0 1 0 12 3.5z"/></svg>
+          Escríbeme por WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUTHORITY BAND -->
+  <section class="sec--ink" style="padding-block:84px">
+    <div class="lp-narrow authority" style="flex-direction:column">
+      <span class="op-eyebrow op-eyebrow--on-dark">Licenciada en varios estados</span>
+      <p class="phrase" style="color:rgba(255,255,255,0.78);font-size:24px;text-align:center;margin:6px 0 0">Acompaño a familias latinas en todo el país, esté donde esté tu hogar.</p>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="sec--dark sec">
+    <div class="lp-container">
+      <div class="stats">
+        <div class="op-stat"><span class="op-stat__value">Varios</span><span class="op-stat__label">Estados con licencia</span></div>
+        <div class="op-stat"><span class="op-stat__value">5+</span><span class="op-stat__label">Años acompañando familias</span></div>
+        <div class="op-stat"><span class="op-stat__value">500+</span><span class="op-stat__label">Familias asesoradas</span></div>
+        <div class="op-stat"><span class="op-stat__value">5★</span><span class="op-stat__label">Reseñas de quienes confían</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT (SOY OSCARINA) -->
+  <section class="sec sec--alt" id="soy-oscarina">
+    <div class="lp-container about">
+      <div>
+        <span class="op-eyebrow"><span class="line-decor" style="width:28px" aria-hidden="true"></span>Soy Oscarina</span>
+        <p class="about__giant" style="margin-top:18px">SOY<br />OSCARINA<span>.</span></p>
+        <p class="phrase" style="font-size:22px;margin-bottom:20px">Y antes de hablar de seguros, me gusta conocerte.</p>
+        <p style="font-weight:300;max-width:460px">Soy asesora licenciada de seguros de vida y salud. Entiendo lo que significa cuidar a los que amas en un país nuevo. Por eso mi forma de trabajar es distinta: primero conversamos para entender qué necesitas y qué buscas, luego te explico cada opción en palabras claras y, al final, decides con calma.</p>
+        <p style="font-weight:300;max-width:460px">Sin tecnicismos y siempre a tu ritmo.</p>
+        <div style="margin-top:28px"><a class="op-btn op-btn--secondary" href="#contacto">Conversemos</a></div>
+      </div>
+      <div class="about__photo">
+        <span class="about__bar" aria-hidden="true"></span>
+        <div class="photo-ph photo-ph--img" role="img" aria-label="Oscarina Parra, asesora de seguros" style="aspect-ratio:4 / 5"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="sec" id="servicios">
+    <div class="lp-container services">
+      <div style="position:sticky;top:110px">
+        <div class="op-secthead">
+          <span class="op-eyebrow"><span class="line-decor" style="width:28px" aria-hidden="true"></span>En qué te acompaño</span>
+          <h2 class="op-secthead__title">Opciones para proteger lo que más importa</h2>
+          <span class="phrase">Cada familia es distinta. Vemos juntas cuál se adapta a la tuya.</span>
+        </div>
+        <div style="margin-top:28px"><a class="op-btn op-btn--ghost" href="#contacto">Ver mis opciones contigo</a></div>
+      </div>
+      <div class="services__list">
+        <div class="op-service"><span class="op-service__num">01</span><div class="op-service__body"><h3 class="op-service__title">Seguro de salud</h3><p class="op-service__desc">Cobertura médica que se ajusta a tu familia y a tu presupuesto.</p></div></div>
+        <div class="op-service"><span class="op-service__num">02</span><div class="op-service__body"><h3 class="op-service__title">Seguro complementario</h3><p class="op-service__desc">Apoyo extra para gastos que el seguro principal no cubre.</p></div></div>
+        <div class="op-service"><span class="op-service__num">03</span><div class="op-service__body"><h3 class="op-service__title">IUL</h3><p class="op-service__desc">Protección de vida con un componente de crecimiento a largo plazo.</p></div></div>
+        <div class="op-service"><span class="op-service__num">04</span><div class="op-service__body"><h3 class="op-service__title">Seguro de vida</h3><p class="op-service__desc">Tranquilidad para los tuyos, pase lo que pase mañana.</p></div></div>
+        <div class="op-service"><span class="op-service__num">05</span><div class="op-service__body"><h3 class="op-service__title">Seguro dental</h3><p class="op-service__desc">Cuida la salud de toda la familia, desde lo más sencillo.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY ME -->
+  <section class="sec sec--pale" id="por-que">
+    <div class="lp-container">
+      <div class="op-secthead" style="text-align:center;align-items:center">
+        <span class="op-eyebrow"><span class="line-decor" style="width:28px" aria-hidden="true"></span>Por qué elegirme</span>
+        <h2 class="op-secthead__title">Una asesora cercana, no una venta</h2>
+        <span class="phrase">Mi trabajo es que entiendas y decidas con tranquilidad.</span>
+      </div>
+      <div class="why-grid">
+        <div class="op-card op-card--top-line">
+          <span class="why-card__icon"><i data-lucide="messages-square" style="width:30px;height:30px;stroke-width:1.4"></i></span>
+          <div class="why-card"><h3>Primero te escucho</h3><p>Empezamos por tu historia y la de tu familia, no por un formulario.</p></div>
+        </div>
+        <div class="op-card op-card--top-line">
+          <span class="why-card__icon"><i data-lucide="languages" style="width:30px;height:30px;stroke-width:1.4"></i></span>
+          <div class="why-card"><h3>En tu idioma</h3><p>Todo en español, claro y cercano, sin tecnicismos que confunden.</p></div>
+        </div>
+        <div class="op-card op-card--top-line">
+          <span class="why-card__icon"><i data-lucide="heart-handshake" style="width:30px;height:30px;stroke-width:1.4"></i></span>
+          <div class="why-card"><h3>Contigo después</h3><p>No desaparezco. Estoy para tus dudas cuando la vida cambia.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="sec" id="testimonios">
+    <div class="lp-container">
+      <div class="op-secthead" style="text-align:center;align-items:center">
+        <span class="op-eyebrow"><span class="line-decor" style="width:28px" aria-hidden="true"></span>Testimonios</span>
+        <h2 class="op-secthead__title">Familias que ya decidieron con tranquilidad</h2>
+      </div>
+      <div style="display:flex;justify-content:center;margin-top:18px">
+        <span class="op-stars" role="img" aria-label="5 de 5">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.7 6.06 6.6.62-4.98 4.38 1.48 6.44L12 17.1l-5.78 3.4 1.48-6.44L2.72 9.7l6.6-.62L12 2.5z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.7 6.06 6.6.62-4.98 4.38 1.48 6.44L12 17.1l-5.78 3.4 1.48-6.44L2.72 9.7l6.6-.62L12 2.5z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.7 6.06 6.6.62-4.98 4.38 1.48 6.44L12 17.1l-5.78 3.4 1.48-6.44L2.72 9.7l6.6-.62L12 2.5z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.7 6.06 6.6.62-4.98 4.38 1.48 6.44L12 17.1l-5.78 3.4 1.48-6.44L2.72 9.7l6.6-.62L12 2.5z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.7 6.06 6.6.62-4.98 4.38 1.48 6.44L12 17.1l-5.78 3.4 1.48-6.44L2.72 9.7l6.6-.62L12 2.5z"/></svg>
+        </span>
+      </div>
+      <div class="tgrid">
+        <div class="op-card op-card--lift" style="padding:36px 32px">
+          <figure class="op-quote" style="margin:0">
+            <span class="op-quote__mark" aria-hidden="true">&ldquo;</span>
+            <blockquote class="op-quote__text" style="margin:0">Por fin entendí mis opciones sin sentir que me vendían algo. Oscarina me explicó todo con calma.</blockquote>
+            <figcaption class="op-quote__author"><span><span class="op-quote__name" style="display:block">María G.</span><span class="op-quote__meta">Orlando, FL</span></span></figcaption>
+          </figure>
+        </div>
+        <div class="op-card op-card--lift" style="padding:36px 32px">
+          <figure class="op-quote" style="margin:0">
+            <span class="op-quote__mark" aria-hidden="true">&ldquo;</span>
+            <blockquote class="op-quote__text" style="margin:0">Nos ayudó a proteger a nuestros hijos. Habla claro y de verdad le importa tu familia.</blockquote>
+            <figcaption class="op-quote__author"><span><span class="op-quote__name" style="display:block">Jorge y Lucía</span><span class="op-quote__meta">Houston, TX</span></span></figcaption>
+          </figure>
+        </div>
+        <div class="op-card op-card--lift" style="padding:36px 32px">
+          <figure class="op-quote" style="margin:0">
+            <span class="op-quote__mark" aria-hidden="true">&ldquo;</span>
+            <blockquote class="op-quote__text" style="margin:0">Me sentí acompañada en cada paso. Decidí tranquila, a mi ritmo, y con confianza.</blockquote>
+            <figcaption class="op-quote__author"><span><span class="op-quote__name" style="display:block">Carolina R.</span><span class="op-quote__meta">Atlanta, GA</span></span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="sec sec--dark" id="contacto">
+    <div class="lp-container contact">
+      <div>
+        <div class="op-secthead op-secthead--on-dark">
+          <span class="op-eyebrow op-eyebrow--on-dark"><span class="line-decor" style="width:28px" aria-hidden="true"></span>Conversemos</span>
+          <h2 class="op-secthead__title">Hablemos de lo que importa</h2>
+          <span style="font-family:var(--font-body);font-size:17px;line-height:1.6;color:rgba(241,236,228,0.9)">Cuéntame un poco de ti y te respondo personalmente.</span>
+        </div>
+        <div class="contact__list">
+          <a class="contact__item" href="mailto:oscarinaparrainsurance@gmail.com">
+            <span class="contact__item-ic"><i data-lucide="mail" style="width:20px;height:20px;color:var(--taupe)"></i></span>
+            <span><span class="contact__item-label" style="display:block">Correo</span><span class="contact__item-val">oscarinaparrainsurance@gmail.com</span></span>
+          </a>
+          <a class="contact__item" href="https://wa.me/17867247558" target="_blank" rel="noopener">
+            <span class="contact__item-ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.4-1.48-.89-.8-1.49-1.78-1.66-2.08-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.42.25-.7.25-1.29.18-1.42-.07-.13-.27-.2-.56-.35zM12 3.5a8.5 8.5 0 0 0-7.3 12.86L3.6 20.4l4.16-1.09A8.5 8.5 0 1 0 12 3.5z"/></svg></span>
+            <span><span class="contact__item-label" style="display:block">WhatsApp disponible</span><span class="contact__item-val">+1 (786) 724-7558</span></span>
+          </a>
+          <div class="contact__item">
+            <span class="contact__item-ic"><i data-lucide="clock" style="width:20px;height:20px;color:var(--taupe)"></i></span>
+            <span><span class="contact__item-label" style="display:block">Horario</span><span class="contact__item-val">Lun–Vie · 9am–6pm EST</span></span>
+          </div>
+        </div>
+      </div>
+      <form class="contact__form" id="contactForm">
+        <input id="cfNombre" class="op-input op-input--on-dark" placeholder="Tu nombre" aria-label="Tu nombre" />
+        <input id="cfCorreo" class="op-input op-input--on-dark" type="email" placeholder="tucorreo@ejemplo.com" aria-label="Tu correo" />
+        <textarea id="cfMensaje" class="op-textarea op-textarea--on-dark" placeholder="¿En qué puedo ayudarte?" rows="4" aria-label="Mensaje"></textarea>
+        <button class="op-btn op-btn--primary op-btn--block" type="submit">
+          <svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.4-1.48-.89-.8-1.49-1.78-1.66-2.08-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.42.25-.7.25-1.29.18-1.42-.07-.13-.27-.2-.56-.35zM12 3.5a8.5 8.5 0 0 0-7.3 12.86L3.6 20.4l4.16-1.09A8.5 8.5 0 1 0 12 3.5z"/></svg>
+          Enviar por WhatsApp
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="lp-container">
+      <p class="footer__phrase">Primero entiendes. Luego decides.</p>
+      <span class="footer__line" aria-hidden="true"></span>
+      <div class="footer__bottom">
+        <div>
+          <div class="nav__logo-name" style="color:#F1ECE4">Oscarina Parra</div>
+          <div class="footer__copy" style="margin-top:8px">Asesora licenciada de seguros de vida y salud</div>
+        </div>
+        <div class="footer__social">
+          <a href="https://instagram.com/oscarinaparrag" target="_blank" rel="noopener" aria-label="Instagram @oscarinaparrag" title="Instagram"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://www.facebook.com/OscarinaParraInsurance" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-8h2.6l.4-3h-3V8.1c0-.87.27-1.46 1.5-1.46H17V3.96C16.4 3.88 15.5 3.8 14.5 3.8c-2.2 0-3.7 1.34-3.7 3.8V10H8.2v3h2.6v8z"/></svg></a>
+          <a href="https://wa.me/17867247558" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp"><svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.4-1.48-.89-.8-1.49-1.78-1.66-2.08-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.42.25-.7.25-1.29.18-1.42-.07-.13-.27-.2-.56-.35zM12 3.5a8.5 8.5 0 0 0-7.3 12.86L3.6 20.4l4.16-1.09A8.5 8.5 0 1 0 12 3.5z"/></svg></a>
+          <a href="mailto:oscarinaparrainsurance@gmail.com" aria-label="Correo" title="Correo"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3 6l9 7 9-7"/></svg></a>
+        </div>
+      </div>
+      <div class="footer__copy" style="margin-top:24px">© 2026 Oscarina Parra · @oscarinaparrag</div>
+    </div>
+  </footer>
+
+</div>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  // Render Lucide icons
+  if (window.lucide) lucide.createIcons();
+
+  // Contact form -> opens WhatsApp with the message prefilled
+  (function () {
+    var form = document.getElementById('contactForm');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var nombre = (document.getElementById('cfNombre').value || '').trim();
+      var correo = (document.getElementById('cfCorreo').value || '').trim();
+      var mensaje = (document.getElementById('cfMensaje').value || '').trim();
+      var texto = 'Hola Oscarina, soy ' + (nombre || '(sin nombre)') + '. '
+        + (mensaje || 'Quiero conversar sobre mis opciones de seguro.');
+      if (correo) texto += ' (Mi correo: ' + correo + ')';
+      window.open('https://wa.me/17867247558?text=' + encodeURIComponent(texto), '_blank');
+    });
+  })();
+</script>
+</body>
+</html>
