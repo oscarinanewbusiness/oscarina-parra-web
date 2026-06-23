@@ -322,8 +322,8 @@ a:hover { opacity: 0.7; }
 /* HERO */
 .hero { position: relative; display: grid; grid-template-columns: 1.02fr 0.98fr; min-height: 66vh; align-items: stretch;
   background: radial-gradient(150% 130% at 16% 18%, #25719F 0%, #1C5C8A 44%, #123B5B 100%); color: #fff; overflow: hidden; }
-.hero__bg { position: relative; grid-column: 2; grid-row: 1; background-color: #E8E6E1;
-  background-image: url('hero.jpg'); background-size: cover; background-position: right center; background-repeat: no-repeat; }
+.hero__bg { position: relative; grid-column: 2; grid-row: 1; background-color: #F4F1EC;
+  background-image: url('oscarina-bw.jpg'); background-size: cover; background-position: center top; background-repeat: no-repeat; }
 .hero__bg::after { content:""; position:absolute; inset:0; background:
   linear-gradient(90deg, #1C5C8A 0%, rgba(28,92,138,0.55) 12%, rgba(28,92,138,0) 34%); }
 .hero__inner { position: relative; z-index: 2; grid-column: 1; grid-row: 1; align-self: center;
@@ -383,7 +383,7 @@ a:hover { opacity: 0.7; }
   border-radius: 2px; display: flex; align-items: flex-end; justify-content: flex-start;
   position: relative; overflow: hidden; }
 /* Real portrait layered on top; if oscarina.jpg is missing the gradient shows through. */
-.photo-ph--img { background-image: url('oscarina.jpg'); background-size: cover; background-position: center top; background-repeat: no-repeat; }
+.photo-ph--img { background-image: url('hero.jpg'); background-size: cover; background-position: 82% 15%; background-repeat: no-repeat; }
 .photo-ph--img::after { content: none; }
 .photo-ph::after { content: attr(data-label); position: absolute; left: 16px; bottom: 14px; font-family: var(--font-body); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: rgba(58,54,48,0.5); }
 
