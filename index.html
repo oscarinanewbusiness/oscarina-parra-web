@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Protección, Vida y Legado · Oscarina Parra Insurance</title>
-<meta name="description" content="Cada persona tiene metas distintas. Te ayudo a encontrar el plan ideal para ti: proteger lo que amas y hacer crecer tu dinero para tu retiro, tus hijos o tus sueños. Mi lema: primero entiendes, luego decides." />
+<meta name="description" content="Te ayudo a proteger lo que amas y hacer crecer tu dinero para tu retiro, tus hijos o tus sueños. Primero entiendes, luego decides." />
 <link rel="canonical" href="https://oscarinainsurance.com/" />
 
 <!-- Open Graph (vista previa al compartir el link) -->
@@ -13,7 +13,7 @@
 <meta property="og:locale" content="es_US" />
 <meta property="og:url" content="https://oscarinainsurance.com/" />
 <meta property="og:title" content="Protección, Vida y Legado · Oscarina Parra Insurance" />
-<meta property="og:description" content="Cada persona tiene metas distintas. Te ayudo a encontrar el plan ideal para ti: proteger lo que amas y hacer crecer tu dinero para tu retiro, tus hijos o tus sueños. Mi lema: primero entiendes, luego decides." />
+<meta property="og:description" content="Te ayudo a proteger lo que amas y hacer crecer tu dinero para tu retiro, tus hijos o tus sueños. Primero entiendes, luego decides." />
 <meta property="og:image" content="https://oscarinainsurance.com/og-image.png" />
 <meta property="og:image:width" content="2400" />
 <meta property="og:image:height" content="1260" />
@@ -22,7 +22,7 @@
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Protección, Vida y Legado · Oscarina Parra Insurance" />
-<meta name="twitter:description" content="Cada persona tiene metas distintas. Te ayudo a encontrar el plan ideal para ti: proteger lo que amas y hacer crecer tu dinero para tu retiro, tus hijos o tus sueños." />
+<meta name="twitter:description" content="Te ayudo a proteger lo que amas y hacer crecer tu dinero para tu retiro, tus hijos o tus sueños. Primero entiendes, luego decides." />
 <meta name="twitter:image" content="https://oscarinainsurance.com/og-image.png" />
 <style>
 /* ============================================================
@@ -339,28 +339,29 @@ a:hover { opacity: 0.7; }
 .nav__link:hover { color: var(--tinta); opacity: 1; }
 
 /* HERO */
-.hero { position: relative; display: grid; grid-template-columns: 1.02fr 0.98fr; min-height: 66vh; align-items: stretch;
-  background: radial-gradient(150% 130% at 16% 18%, #25719F 0%, #1C5C8A 44%, #123B5B 100%); color: #fff; overflow: hidden; }
-.hero__bg { position: relative; grid-column: 2; grid-row: 1; background-color: #F4F1EC;
+.hero { position: relative; display: grid; grid-template-columns: 1.02fr 0.98fr; min-height: 64vh; align-items: stretch;
+  background:
+    radial-gradient(85% 80% at 80% 16%, rgba(246,216,138,0.22), transparent 55%),
+    linear-gradient(120deg, #FBF9F5 0%, #F3EDE3 55%, #EAE1D2 100%);
+  color: var(--text-heading); overflow: hidden; }
+.hero::before { content:""; position: absolute; left: 0; top: 0; bottom: 0; width: 10px; z-index: 4;
+  background: linear-gradient(180deg, #16A6BD 0%, #0E7E90 100%); }
+.hero__bg { position: relative; grid-column: 2; grid-row: 1; background-color: #F1EBE0;
   background-image: url('oscarina-bw.jpg'); background-size: cover; background-position: center top; background-repeat: no-repeat; }
 .hero__bg::after { content:""; position:absolute; inset:0; background:
-  linear-gradient(90deg, #1C5C8A 0%, rgba(28,92,138,0.55) 12%, rgba(28,92,138,0) 34%); }
+  linear-gradient(90deg, #F3EDE3 0%, rgba(243,237,227,0.55) 14%, rgba(243,237,227,0) 36%); }
 .hero__inner { position: relative; z-index: 2; grid-column: 1; grid-row: 1; align-self: center;
-  padding: 96px 56px 96px max(40px, calc((100vw - 1180px) / 2 + 40px)); }
-.hero .op-eyebrow { color: #F0D391; font-size: 15.5px; letter-spacing: 0.14em; font-weight: 600; }
-.hero .op-eyebrow .line-decor { background: #F0D391; width: 32px; height: 2px; }
-.hero h1 { color: #fff; font-size: clamp(46px, 5.2vw, 72px); font-weight: 600; line-height: 1.02; }
-.hero h1 em { font-style: italic; color: #ECCB7C; }
-.hero__lead { font-family: var(--font-body); font-style: normal; font-weight: 400; font-size: 20px; line-height: 1.6; color: rgba(255,255,255,0.92); margin: 22px 0 36px; max-width: 480px; }
+  padding: 92px 56px 92px max(48px, calc((100vw - 1180px) / 2 + 48px)); }
+.hero .op-eyebrow { color: #B8923C; font-size: 15.5px; letter-spacing: 0.14em; font-weight: 600; }
+.hero .op-eyebrow .line-decor { background: #C9A24B; width: 32px; height: 2px; }
+.hero h1 { color: #1A1614; font-size: clamp(46px, 5.2vw, 72px); font-weight: 600; line-height: 1.02; }
+.hero h1 em { font-style: italic; color: var(--zafiro); }
+.hero__lead { font-family: var(--font-body); font-style: normal; font-weight: 400; font-size: 20px; line-height: 1.6; color: var(--text-body); margin: 22px 0 36px; max-width: 480px; }
 .hero__cta { display: flex; gap: 16px; flex-wrap: wrap; }
-.hero .op-btn--primary { background: #fff; color: var(--zafiro); }
-.hero .op-btn--primary:hover { background: #EAF0F5; }
-.hero .op-btn--ghost { color: #fff; border-color: rgba(255,255,255,0.5); }
-.hero .op-btn--ghost:hover { background: rgba(255,255,255,0.12); border-color: #fff; }
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; }
   .hero__bg { grid-column: 1; grid-row: 1; min-height: 320px; }
-  .hero__bg::after { background: linear-gradient(0deg, #1C5C8A 0%, rgba(28,92,138,0) 30%); }
+  .hero__bg::after { background: linear-gradient(0deg, #F3EDE3 0%, rgba(243,237,227,0) 30%); }
   .hero__inner { grid-column: 1; grid-row: 2; padding: 48px 24px 56px; }
 }
 
