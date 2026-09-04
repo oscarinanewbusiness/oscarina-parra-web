@@ -720,7 +720,7 @@ a:hover { opacity: 0.7; }
           <option value="Puerto Rico" data-tz="Atlántico (AST)">Puerto Rico</option>
           <option value="Otro / fuera de USA" data-tz="por confirmar">Otro / fuera de USA</option>
         </select>
-        <textarea id="cfMensaje" class="op-textarea op-textarea--on-dark" placeholder="¿En qué puedo ayudarte?" rows="4" aria-label="Mensaje">Hola, Oscarina! Vi tu publicidad en Google y tengo interés en conocer más sobre el IUL. Me gustaría saber cómo funciona, qué opciones tengo y si puedo calificar.</textarea>
+        <textarea id="cfMensaje" class="op-textarea op-textarea--on-dark" placeholder="¿En qué puedo ayudarte?" rows="4" aria-label="Mensaje">Hola, Oscarina! Vi tu anuncio en Google, quiero información sobre el IUL y si califico.</textarea>
         <button class="op-btn op-btn--primary op-btn--block" type="submit">
           <svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.4-1.48-.89-.8-1.49-1.78-1.66-2.08-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.42.25-.7.25-1.29.18-1.42-.07-.13-.27-.2-.56-.35zM12 3.5a8.5 8.5 0 0 0-7.3 12.86L3.6 20.4l4.16-1.09A8.5 8.5 0 1 0 12 3.5z"/></svg>
           Enviar por WhatsApp
@@ -769,7 +769,7 @@ a:hover { opacity: 0.7; }
       var selEstado = document.getElementById('cfEstado');
       var estado = (selEstado && selEstado.value || '').trim();
       var tz = (selEstado && selEstado.options[selEstado.selectedIndex] && selEstado.options[selEstado.selectedIndex].getAttribute('data-tz')) || '';
-      var texto = mensaje || 'Hola, Oscarina! Vi tu publicidad en Google y tengo interés en conocer más sobre el IUL.';
+      var texto = mensaje || 'Hola, Oscarina! Vi tu anuncio en Google, quiero información sobre el IUL y si califico.';
       if (nombre) texto += ' Mi nombre es ' + nombre + '.';
       if (estado) texto += ' Vivo en ' + estado + (tz ? ' (zona horaria ' + tz + ')' : '') + '.';
       if (correo) texto += ' Mi correo: ' + correo + '.';
