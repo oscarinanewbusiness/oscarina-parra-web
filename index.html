@@ -597,86 +597,24 @@ a:hover { opacity: 0.7; }
 
 
 /* ============================================================
-   LEAD CAPTURE — save first, then WhatsApp / SMS / Call
+   LEAD CAPTURE — in-page form, no modal
    ============================================================ */
-.lead-modal[hidden] { display: none; }
-.lead-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: grid;
-  place-items: center;
-  padding: 22px;
+.contact-direct {
+  max-width: 760px;
+  margin-inline: auto;
 }
-.lead-modal__backdrop {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: rgba(14,11,10,0.70);
-  backdrop-filter: blur(4px);
-  /* Mobile fix: the visual backdrop must never intercept form taps. */
-  pointer-events: none;
+.contact-direct__head {
+  text-align: center;
+  align-items: center;
 }
-.lead-modal__dialog {
-  position: relative;
-  z-index: 2;
-  pointer-events: auto;
-  isolation: isolate;
-  width: min(100%, 590px);
-  max-height: min(92vh, 820px);
-  overflow: auto;
-  background: var(--surface-card);
-  border: 1px solid var(--border-hair);
-  border-radius: 12px;
-  box-shadow: 0 26px 80px -28px rgba(0,0,0,0.55);
-  padding: 34px;
+.contact-direct__form {
+  margin-top: 36px;
 }
-.lead-modal__close {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  width: 38px;
-  height: 38px;
-  border: 1px solid var(--border-hair);
-  border-radius: 50%;
-  background: #fff;
-  color: var(--text-heading);
-  font-size: 24px;
-  line-height: 1;
-  cursor: pointer;
+.contact__form .lead-consent {
+  color: rgba(241,236,228,0.72);
 }
-.lead-modal__title {
-  font-size: clamp(34px, 5vw, 46px);
-  padding-right: 42px;
-}
-.lead-modal__lead {
-  margin-top: 10px;
-  color: var(--text-body);
-  font-size: 16px;
-}
-.lead-capture-form {
-  display: grid;
-  gap: 14px;
-  margin-top: 22px;
-}
-.lead-capture-form .op-input,
-.lead-capture-form .op-textarea {
-  background: #fff;
-  color: var(--text-heading);
-}
-
-/* Ensure every form control stays above composited backdrops on mobile Chrome. */
-.lead-modal__dialog input,
-.lead-modal__dialog select,
-.lead-modal__dialog textarea,
-.lead-modal__dialog button,
-.lead-modal__dialog a,
-.lead-modal__dialog label {
-  position: relative;
-  z-index: 1;
-  pointer-events: auto;
-  touch-action: manipulation;
-}
+.contact__form .lead-form-status[data-state="error"] { color: #FFD1D1; }
+.contact__form .lead-form-status[data-state="ok"] { color: #CFF3D6; }
 .lead-consent {
   display: grid;
   grid-template-columns: 20px 1fr;
@@ -684,7 +622,6 @@ a:hover { opacity: 0.7; }
   align-items: start;
   font-size: 12.5px;
   line-height: 1.45;
-  color: var(--text-muted);
 }
 .lead-consent input {
   margin-top: 3px;
@@ -696,8 +633,6 @@ a:hover { opacity: 0.7; }
   font-size: 14px;
   margin: 2px 0 0;
 }
-.lead-form-status[data-state="error"] { color: #9B1C1C; }
-.lead-form-status[data-state="ok"] { color: #236B39; }
 .lead-hp {
   position: absolute !important;
   left: -9999px !important;
@@ -715,36 +650,26 @@ a:hover { opacity: 0.7; }
   border-radius: 8px;
   background: var(--zafiro-pale);
   border: 1px solid rgba(28,92,138,0.12);
+  color: var(--text-body);
 }
 .lead-success[hidden] { display: none; }
-.lead-success h3 { font-size: 28px; }
+.lead-success h3 {
+  font-size: 28px;
+  color: var(--text-heading);
+}
 .lead-success p { margin: 8px 0 18px; }
 .lead-success__actions {
   display: grid;
   grid-template-columns: 1fr;
   gap: 10px;
 }
-.lead-success__actions .op-btn {
-  width: 100%;
-}
+.lead-success__actions .op-btn { width: 100%; }
 .lead-success__sms { background: var(--tinta); color: #fff; }
 .lead-success__sms:hover { opacity: .9; }
-.contact__form .lead-consent { color: rgba(241,236,228,0.72); }
-.contact__form .lead-form-status[data-state="error"] { color: #FFD1D1; }
-.contact__form .lead-form-status[data-state="ok"] { color: #CFF3D6; }
-.contact-lead-success {
-  margin-top: 4px;
-}
-body.lead-modal-open { overflow: hidden; }
+.contact-lead-success { margin-top: 4px; }
 
 @media (max-width: 640px) {
-  .lead-modal { padding: 10px; align-items: end; }
-  .lead-modal__dialog {
-    width: 100%;
-    max-height: 94vh;
-    border-radius: 14px 14px 0 0;
-    padding: 28px 20px 22px;
-  }
+  .contact-direct__form { margin-top: 28px; }
 }
 
 </style>
@@ -814,7 +739,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
           <h2>¿Quieres saber si puedes calificar?</h2>
           <p>Primero comprobamos si calificas. Después decides si esto tiene sentido para ti.</p>
           <a class="op-btn op-btn--primary op-btn--lg"
-             href="#lead-modal" data-lead-cta data-pref-channel="whatsapp" data-wa-message="Hola Oscarina, llegué por la información del IUL y quiero saber si puedo calificar.">
+             href="#contacto">
             <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.4-1.48-.89-.8-1.49-1.78-1.66-2.08-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.42.25-.7.25-1.29.18-1.42-.07-.13-.27-.2-.56-.35zM12 3.5a8.5 8.5 0 0 0-7.3 12.86L3.6 20.4l4.16-1.09A8.5 8.5 0 1 0 12 3.5z"/></svg>
             Quiero saber si califico
           </a>
@@ -851,10 +776,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
       <h1 style="margin-top:22px">Primero entiendes.<br />Luego <em>decides.</em></h1>
       <p class="hero__lead">Te ayudo a entender y elegir tu seguro de vida y salud. Conversamos con calma y eliges lo que te dé tranquilidad.</p>
       <div class="hero__cta">
-        <a class="op-btn op-btn--primary op-btn--lg" href="#lead-modal" data-lead-cta data-pref-channel="whatsapp" data-wa-message="Hola, Oscarina! Vi tu anuncio y me gustaría más información sobre el IUL, y saber si califico.
-Mi nombre es: ">
+        <a class="op-btn op-btn--primary op-btn--lg" href="#contacto">
           <svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.4-1.48-.89-.8-1.49-1.78-1.66-2.08-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.42.25-.7.25-1.29.18-1.42-.07-.13-.27-.2-.56-.35zM12 3.5a8.5 8.5 0 0 0-7.3 12.86L3.6 20.4l4.16-1.09A8.5 8.5 0 1 0 12 3.5z"/></svg>
-          Consultar por WhatsApp
+          Quiero saber si califico
         </a>
         <a class="op-btn op-btn--ghost op-btn--lg" href="#contacto">Agenda una charla</a>
       </div>
@@ -868,13 +792,11 @@ Mi nombre es: ">
       <h2 class="op-secthead__title" style="margin-top:6px">¿Tienes dudas? Escríbeme directo</h2>
       <span class="phrase" style="margin-bottom:10px">Te respondo personalmente por WhatsApp, cuando a ti te quede bien.</span>
       <div style="margin-top:18px">
-        <a class="op-btn op-btn--primary op-btn--lg" href="#lead-modal" data-lead-cta data-pref-channel="whatsapp" data-wa-message="Hola, Oscarina! Vi tu anuncio y me gustaría más información sobre el IUL, y saber si califico.
-Mi nombre es: ">
+        <a class="op-btn op-btn--primary op-btn--lg" href="#contacto">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.4-1.48-.89-.8-1.49-1.78-1.66-2.08-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.42.25-.7.25-1.29.18-1.42-.07-.13-.27-.2-.56-.35zM12 3.5a8.5 8.5 0 0 0-7.3 12.86L3.6 20.4l4.16-1.09A8.5 8.5 0 1 0 12 3.5z"/></svg>
-          Consultar por WhatsApp
+          Quiero saber si califico
         </a>
       </div>
-      <p style="margin-top:16px;font-size:15px;color:var(--text-muted)">¿Sin WhatsApp? Llámame al <a href="#lead-modal" style="color:var(--zafiro);font-weight:500" data-lead-cta data-pref-channel="call">+1 305-607-9481</a> o escríbeme a <a href="mailto:oscarinaparrainsurance@gmail.com" style="color:var(--zafiro);font-weight:500">oscarinaparrainsurance@gmail.com</a></p>
     </div>
   </section>
 
@@ -930,7 +852,7 @@ Mi nombre es: ">
       <div class="services__list">
         <div class="op-service"><span class="op-service__num">01</span><div class="op-service__body"><h3 class="op-service__title">Seguro de salud</h3><p class="op-service__desc">Cobertura médica que se ajusta a tu familia y a tu presupuesto.</p></div></div>
         <div class="op-service"><span class="op-service__num">02</span><div class="op-service__body"><h3 class="op-service__title">Seguro complementario</h3><p class="op-service__desc">Apoyo extra para gastos que el seguro principal no cubre.</p></div></div>
-        <a class="op-service op-service--clickable" href="#lead-modal" aria-label="IUL: quiero saber si califico" data-lead-cta data-pref-channel="whatsapp" data-wa-message="Hola Oscarina, estoy interesado/a en el IUL y quisiera saber si califico."><span class="op-service__num">03</span><div class="op-service__body"><h3 class="op-service__title">IUL</h3><p class="op-service__desc">Protección de vida con un componente de crecimiento a largo plazo.</p><span class="op-service__cta">Quiero saber si califico →</span></div></a>
+        <a class="op-service op-service--clickable" href="#contacto" aria-label="IUL: quiero saber si califico"><span class="op-service__num">03</span><div class="op-service__body"><h3 class="op-service__title">IUL</h3><p class="op-service__desc">Protección de vida con un componente de crecimiento a largo plazo.</p><span class="op-service__cta">Quiero saber si califico →</span></div></a>
         <div class="op-service"><span class="op-service__num">04</span><div class="op-service__body"><h3 class="op-service__title">Seguro de vida</h3><p class="op-service__desc">Tranquilidad para los tuyos, pase lo que pase mañana.</p></div></div>
         <div class="op-service"><span class="op-service__num">05</span><div class="op-service__body"><h3 class="op-service__title">Seguro dental</h3><p class="op-service__desc">Cuida la salud de toda la familia, desde lo más sencillo.</p></div></div>
       </div>
@@ -1006,30 +928,14 @@ Mi nombre es: ">
 
   <!-- CONTACT -->
   <section class="sec sec--dark" id="contacto">
-    <div class="lp-container contact">
-      <div>
-        <div class="op-secthead op-secthead--on-dark">
+    <div class="lp-container">
+      <div class="contact-direct">
+        <div class="op-secthead op-secthead--on-dark contact-direct__head">
           <span class="op-eyebrow op-eyebrow--on-dark"><span class="line-decor" style="width:28px" aria-hidden="true"></span>Conversemos</span>
           <h2 class="op-secthead__title">Hablemos de lo que importa</h2>
           <span style="font-family:var(--font-body);font-size:17px;line-height:1.6;color:rgba(241,236,228,0.9)">Cuéntame un poco de ti y te respondo personalmente.</span>
         </div>
-        <div class="contact__list">
-          <a class="contact__item" href="mailto:oscarinaparrainsurance@gmail.com">
-            <span class="contact__item-ic"><i data-lucide="mail" style="width:20px;height:20px;color:var(--taupe)"></i></span>
-            <span><span class="contact__item-label" style="display:block">Correo</span><span class="contact__item-val">oscarinaparrainsurance@gmail.com</span></span>
-          </a>
-          <a class="contact__item" href="#lead-modal" data-lead-cta data-pref-channel="whatsapp" data-wa-message="Hola, Oscarina! Vi tu anuncio y me gustaría más información sobre el IUL, y saber si califico.
-Mi nombre es: ">
-            <span class="contact__item-ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.4-1.48-.89-.8-1.49-1.78-1.66-2.08-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.42.25-.7.25-1.29.18-1.42-.07-.13-.27-.2-.56-.35zM12 3.5a8.5 8.5 0 0 0-7.3 12.86L3.6 20.4l4.16-1.09A8.5 8.5 0 1 0 12 3.5z"/></svg></span>
-            <span><span class="contact__item-label" style="display:block">WhatsApp</span><span class="contact__item-val">+1 (305) 607-9481</span></span>
-          </a>
-          <div class="contact__item">
-            <span class="contact__item-ic"><i data-lucide="clock" style="width:20px;height:20px;color:var(--taupe)"></i></span>
-            <span><span class="contact__item-label" style="display:block">Horario</span><span class="contact__item-val">Lunes – Viernes: 9am – 6pm<br>Sábado: 9am – 2pm<br>Domingo y días festivos: Cerrado</span></span>
-          </div>
-        </div>
-      </div>
-      <form class="contact__form" id="contactForm" data-lead-form data-lead-source="contact_section" novalidate>
+        <form class="contact__form contact-direct__form" id="contactForm" data-lead-form data-lead-source="contact_section" novalidate>
         <input id="cfNombre" name="nombre" class="op-input op-input--on-dark" placeholder="Tu nombre" aria-label="Tu nombre" autocomplete="name" required />
         <input id="cfTelefono" name="telefono" class="op-input op-input--on-dark" type="tel" inputmode="tel" placeholder="Tu teléfono móvil" aria-label="Tu teléfono móvil" autocomplete="tel" required />
         <input id="cfCorreo" name="email" class="op-input op-input--on-dark" type="email" placeholder="tucorreo@ejemplo.com (opcional)" aria-label="Tu correo" autocomplete="email" />
@@ -1113,104 +1019,10 @@ Mi nombre es: ">
         </div>
 
       </form>
+      </div>
     </div>
   </section>
 
-
-  <!-- LEAD CAPTURE MODAL -->
-  <div class="lead-modal" id="lead-modal" hidden aria-hidden="true">
-    <div class="lead-modal__backdrop" data-lead-modal-close></div>
-    <section class="lead-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="leadModalTitle">
-      <button class="lead-modal__close" type="button" aria-label="Cerrar" data-lead-modal-close>&times;</button>
-      <span class="op-eyebrow">Consulta sobre IUL</span>
-      <h2 class="lead-modal__title" id="leadModalTitle">Déjanos tus datos primero</h2>
-      <p class="lead-modal__lead">Así Oscarina puede contactarte aunque WhatsApp, SMS o la llamada no se completen.</p>
-
-      <form class="lead-capture-form" id="leadModalForm" data-lead-form data-lead-source="modal" novalidate>
-        <input class="op-input" name="nombre" placeholder="Tu nombre" aria-label="Tu nombre" autocomplete="name" required />
-        <input class="op-input" name="telefono" type="tel" inputmode="tel" placeholder="Tu teléfono móvil" aria-label="Tu teléfono móvil" autocomplete="tel" required />
-        <input class="op-input" name="email" type="email" placeholder="Tu correo (opcional)" aria-label="Tu correo" autocomplete="email" />
-        <select class="op-input" name="estado" required aria-label="Estado donde vives">
-
-          <option value="" disabled selected>¿En qué estado vives?</option>
-          <option value="Alabama" data-tz="Centro (CT)">Alabama</option>
-          <option value="Alaska" data-tz="Alaska (AKT)">Alaska</option>
-          <option value="Arizona" data-tz="Montaña (MT)">Arizona</option>
-          <option value="Arkansas" data-tz="Centro (CT)">Arkansas</option>
-          <option value="California" data-tz="Pacífico (PT)">California</option>
-          <option value="Colorado" data-tz="Montaña (MT)">Colorado</option>
-          <option value="Connecticut" data-tz="Este (ET)">Connecticut</option>
-          <option value="Delaware" data-tz="Este (ET)">Delaware</option>
-          <option value="Florida" data-tz="Este (ET)">Florida</option>
-          <option value="Georgia" data-tz="Este (ET)">Georgia</option>
-          <option value="Hawái" data-tz="Hawái (HT)">Hawái</option>
-          <option value="Idaho" data-tz="Montaña (MT)">Idaho</option>
-          <option value="Illinois" data-tz="Centro (CT)">Illinois</option>
-          <option value="Indiana" data-tz="Este (ET)">Indiana</option>
-          <option value="Iowa" data-tz="Centro (CT)">Iowa</option>
-          <option value="Kansas" data-tz="Centro (CT)">Kansas</option>
-          <option value="Kentucky" data-tz="Este (ET)">Kentucky</option>
-          <option value="Louisiana" data-tz="Centro (CT)">Louisiana</option>
-          <option value="Maine" data-tz="Este (ET)">Maine</option>
-          <option value="Maryland" data-tz="Este (ET)">Maryland</option>
-          <option value="Massachusetts" data-tz="Este (ET)">Massachusetts</option>
-          <option value="Michigan" data-tz="Este (ET)">Michigan</option>
-          <option value="Minnesota" data-tz="Centro (CT)">Minnesota</option>
-          <option value="Mississippi" data-tz="Centro (CT)">Mississippi</option>
-          <option value="Missouri" data-tz="Centro (CT)">Missouri</option>
-          <option value="Montana" data-tz="Montaña (MT)">Montana</option>
-          <option value="Nebraska" data-tz="Centro (CT)">Nebraska</option>
-          <option value="Nevada" data-tz="Pacífico (PT)">Nevada</option>
-          <option value="New Hampshire" data-tz="Este (ET)">New Hampshire</option>
-          <option value="New Jersey" data-tz="Este (ET)">New Jersey</option>
-          <option value="New Mexico" data-tz="Montaña (MT)">New Mexico</option>
-          <option value="New York" data-tz="Este (ET)">New York</option>
-          <option value="North Carolina" data-tz="Este (ET)">North Carolina</option>
-          <option value="North Dakota" data-tz="Centro (CT)">North Dakota</option>
-          <option value="Ohio" data-tz="Este (ET)">Ohio</option>
-          <option value="Oklahoma" data-tz="Centro (CT)">Oklahoma</option>
-          <option value="Oregon" data-tz="Pacífico (PT)">Oregon</option>
-          <option value="Pennsylvania" data-tz="Este (ET)">Pennsylvania</option>
-          <option value="Rhode Island" data-tz="Este (ET)">Rhode Island</option>
-          <option value="South Carolina" data-tz="Este (ET)">South Carolina</option>
-          <option value="South Dakota" data-tz="Centro (CT)">South Dakota</option>
-          <option value="Tennessee" data-tz="Centro (CT)">Tennessee</option>
-          <option value="Texas" data-tz="Centro (CT)">Texas</option>
-          <option value="Utah" data-tz="Montaña (MT)">Utah</option>
-          <option value="Vermont" data-tz="Este (ET)">Vermont</option>
-          <option value="Virginia" data-tz="Este (ET)">Virginia</option>
-          <option value="Washington" data-tz="Pacífico (PT)">Washington</option>
-          <option value="Washington D.C." data-tz="Este (ET)">Washington D.C.</option>
-          <option value="West Virginia" data-tz="Este (ET)">West Virginia</option>
-          <option value="Wisconsin" data-tz="Centro (CT)">Wisconsin</option>
-          <option value="Wyoming" data-tz="Montaña (MT)">Wyoming</option>
-          <option value="Puerto Rico" data-tz="Atlántico (AST)">Puerto Rico</option>
-          <option value="Otro / fuera de USA" data-tz="por confirmar">Otro / fuera de USA</option>
-        
-        </select>
-        <textarea class="op-textarea" name="mensaje" rows="3" aria-label="Mensaje">Hola, Oscarina. Quiero información sobre el IUL y saber si puedo calificar.</textarea>
-        <label class="lead-consent">
-          <input type="checkbox" name="consentimiento" value="yes" required />
-          <span>Acepto que Oscarina Parra Insurance me contacte sobre mi solicitud por llamada, SMS o WhatsApp. Pueden aplicarse tarifas de mensajes y datos. El consentimiento no es condición de compra.</span>
-        </label>
-        <div class="lead-hp" aria-hidden="true">
-          <label>No completar <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
-        </div>
-        <button class="op-btn op-btn--primary op-btn--block lead-submit" type="submit">Guardar mis datos y continuar</button>
-        <p class="lead-form-status" aria-live="polite"></p>
-
-        <div class="lead-success" hidden>
-          <h3>¡Listo! Ya recibimos tus datos.</h3>
-          <p>Puedes continuar ahora con Oscarina por el medio que prefieras.</p>
-          <div class="lead-success__actions">
-            <a class="op-btn op-btn--primary lead-go-whatsapp" href="#" target="_blank" rel="noopener">Continuar por WhatsApp</a>
-            <a class="op-btn lead-success__sms lead-go-sms" href="#">Enviar mensaje de texto</a>
-            <a class="op-btn op-btn--ghost lead-go-call" href="#">Llamar ahora</a>
-          </div>
-        </div>
-      </form>
-    </section>
-  </div>
 
   <!-- FOOTER -->
   <footer class="footer">
@@ -1225,9 +1037,7 @@ Mi nombre es: ">
         <div class="footer__social">
           <a href="https://instagram.com/oscarinaparrag" target="_blank" rel="noopener" aria-label="Instagram @oscarinaparrag" title="Instagram"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/></svg></a>
           <a href="https://www.facebook.com/OscarinaParraInsurance" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-8h2.6l.4-3h-3V8.1c0-.87.27-1.46 1.5-1.46H17V3.96C16.4 3.88 15.5 3.8 14.5 3.8c-2.2 0-3.7 1.34-3.7 3.8V10H8.2v3h2.6v8z"/></svg></a>
-          <a href="#lead-modal" aria-label="WhatsApp" title="WhatsApp" data-lead-cta data-pref-channel="whatsapp" data-wa-message="Hola, Oscarina! Vi tu anuncio y me gustaría más información sobre el IUL, y saber si califico.
-Mi nombre es: "><svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.4-1.48-.89-.8-1.49-1.78-1.66-2.08-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.42.25-.7.25-1.29.18-1.42-.07-.13-.27-.2-.56-.35zM12 3.5a8.5 8.5 0 0 0-7.3 12.86L3.6 20.4l4.16-1.09A8.5 8.5 0 1 0 12 3.5z"/></svg></a>
-          <a href="mailto:oscarinaparrainsurance@gmail.com" aria-label="Correo" title="Correo"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3 6l9 7 9-7"/></svg></a>
+          <a href="#contacto" aria-label="WhatsApp" title="WhatsApp"><svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.4-1.48-.89-.8-1.49-1.78-1.66-2.08-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.42.25-.7.25-1.29.18-1.42-.07-.13-.27-.2-.56-.35zM12 3.5a8.5 8.5 0 0 0-7.3 12.86L3.6 20.4l4.16-1.09A8.5 8.5 0 1 0 12 3.5z"/></svg></a>
         </div>
       </div>
       <div class="footer__copy" style="margin-top:24px">© 2026 Oscarina Parra · @oscarinaparrag</div>
@@ -1247,9 +1057,6 @@ Mi nombre es: "><svg viewBox="0 0 24 24" width="19" height="19" fill="currentCol
     var OSCARINA_PHONE_E164 = '+13056079481';
     var OSCARINA_PHONE_WA = '13056079481';
     var DEFAULT_MESSAGE = 'Hola Oscarina, solicité información sobre el IUL y quiero saber si puedo calificar.';
-    var modal = document.getElementById('lead-modal');
-    var lastTrigger = null;
-    var currentIntent = { channel: 'whatsapp', message: DEFAULT_MESSAGE, cta: '' };
 
     function getAttribution() {
       var keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','gbraid','wbraid'];
@@ -1271,59 +1078,8 @@ Mi nombre es: "><svg viewBox="0 0 24 24" width="19" height="19" fill="currentCol
       return 'lead_' + Date.now() + '_' + Math.random().toString(36).slice(2, 12);
     }
 
-    function openModal(trigger) {
-      if (!modal) return;
-      lastTrigger = trigger || null;
-      currentIntent.channel = (trigger && trigger.dataset.prefChannel) || 'whatsapp';
-      currentIntent.message = (trigger && trigger.dataset.waMessage) || DEFAULT_MESSAGE;
-      currentIntent.cta = ((trigger && trigger.textContent) || (trigger && trigger.getAttribute('aria-label')) || 'CTA').trim().replace(/\s+/g, ' ').slice(0, 120);
-
-      var form = modal.querySelector('[data-lead-form]');
-      if (form) {
-        form.dataset.leadSource = 'cta';
-        form.dataset.leadCta = currentIntent.cta;
-        var msg = form.querySelector('[name="mensaje"]');
-        if (msg && currentIntent.message) msg.value = currentIntent.message;
-        resetSuccess(form);
-      }
-
-      modal.hidden = false;
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('lead-modal-open');
-      setTimeout(function () {
-        var first = modal.querySelector('input[name="nombre"]');
-        if (first) first.focus();
-      }, 20);
-    }
-
-    function closeModal() {
-      if (!modal) return;
-      modal.hidden = true;
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('lead-modal-open');
-      if (lastTrigger && lastTrigger.focus) lastTrigger.focus();
-    }
-
-    function resetSuccess(form) {
-      var success = form.querySelector('.lead-success');
-      var status = form.querySelector('.lead-form-status');
-      var submit = form.querySelector('.lead-submit');
-      if (success) success.hidden = true;
-      if (status) {
-        status.textContent = '';
-        status.removeAttribute('data-state');
-      }
-      if (submit) {
-        submit.disabled = false;
-        submit.textContent = 'Guardar mis datos y continuar';
-      }
-      Array.prototype.forEach.call(form.elements, function (el) {
-        if (!el.closest || !el.closest('.lead-success')) el.hidden = false;
-      });
-    }
-
     function buildFollowupMessage(data) {
-      var msg = (data.mensaje || currentIntent.message || DEFAULT_MESSAGE).trim();
+      var msg = (data.mensaje || DEFAULT_MESSAGE).trim();
       if (data.nombre && msg.toLowerCase().indexOf(data.nombre.toLowerCase()) === -1) {
         msg += ' Mi nombre es ' + data.nombre + '.';
       }
@@ -1374,16 +1130,16 @@ Mi nombre es: "><svg viewBox="0 0 24 24" width="19" height="19" fill="currentCol
         mensaje: String(fd.get('mensaje') || '').trim(),
         consentimiento: fd.get('consentimiento') === 'yes',
         website: String(fd.get('website') || '').trim(),
-        source: form.dataset.leadSource || 'website',
-        cta: form.dataset.leadCta || currentIntent.cta || '',
-        intended_channel: currentIntent.channel || 'whatsapp',
+        source: 'contact_section',
+        cta: 'Formulario principal IUL',
+        intended_channel: 'followup_choice',
         page_title: document.title,
         attribution: getAttribution()
       };
 
       submit.disabled = true;
       submit.textContent = 'Guardando...';
-      status.textContent = 'Guardando tus datos de forma segura...';
+      status.textContent = 'Guardando tus datos...';
       status.removeAttribute('data-state');
 
       try {
@@ -1393,6 +1149,7 @@ Mi nombre es: "><svg viewBox="0 0 24 24" width="19" height="19" fill="currentCol
           body: JSON.stringify(data),
           credentials: 'same-origin'
         });
+
         var result = {};
         try { result = await response.json(); } catch (_) {}
 
@@ -1400,11 +1157,11 @@ Mi nombre es: "><svg viewBox="0 0 24 24" width="19" height="19" fill="currentCol
           throw new Error(result.error || 'No se pudo guardar el contacto.');
         }
 
-        // IMPORTANT: no PII is pushed to GTM / GA4.
+        // No PII is sent to GTM / GA4.
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
           event: 'lead_captured',
-          lead_source: data.source,
+          lead_source: 'contact_section',
           lead_intent: 'iul',
           value: 10,
           currency: 'USD'
@@ -1412,6 +1169,7 @@ Mi nombre es: "><svg viewBox="0 0 24 24" width="19" height="19" fill="currentCol
 
         showSuccess(form, data);
       } catch (err) {
+        console.error('Lead capture error:', err);
         status.textContent = 'No pudimos guardar tus datos. Revisa tu conexión e inténtalo de nuevo.';
         status.setAttribute('data-state', 'error');
         submit.disabled = false;
@@ -1419,29 +1177,13 @@ Mi nombre es: "><svg viewBox="0 0 24 24" width="19" height="19" fill="currentCol
       }
     }
 
-    document.addEventListener('click', function (e) {
-      var trigger = e.target.closest('[data-lead-cta]');
-      if (trigger) {
-        e.preventDefault();
-        openModal(trigger);
-        return;
-      }
-      if (e.target.closest('[data-lead-modal-close]') || e.target === modal) {
-        e.preventDefault();
-        closeModal();
-      }
-    });
-
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && modal && !modal.hidden) closeModal();
-    });
-
-    document.querySelectorAll('[data-lead-form]').forEach(function (form) {
+    var form = document.getElementById('contactForm');
+    if (form) {
       form.addEventListener('submit', function (e) {
         e.preventDefault();
         submitLead(form);
       });
-    });
+    }
 
     getAttribution();
   })();
