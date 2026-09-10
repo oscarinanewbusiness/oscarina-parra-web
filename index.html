@@ -611,12 +611,17 @@ a:hover { opacity: 0.7; }
 .lead-modal__backdrop {
   position: absolute;
   inset: 0;
+  z-index: 0;
   background: rgba(14,11,10,0.70);
   backdrop-filter: blur(4px);
+  /* Mobile fix: the visual backdrop must never intercept form taps. */
+  pointer-events: none;
 }
 .lead-modal__dialog {
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  pointer-events: auto;
+  isolation: isolate;
   width: min(100%, 590px);
   max-height: min(92vh, 820px);
   overflow: auto;
@@ -658,6 +663,19 @@ a:hover { opacity: 0.7; }
 .lead-capture-form .op-textarea {
   background: #fff;
   color: var(--text-heading);
+}
+
+/* Ensure every form control stays above composited backdrops on mobile Chrome. */
+.lead-modal__dialog input,
+.lead-modal__dialog select,
+.lead-modal__dialog textarea,
+.lead-modal__dialog button,
+.lead-modal__dialog a,
+.lead-modal__dialog label {
+  position: relative;
+  z-index: 1;
+  pointer-events: auto;
+  touch-action: manipulation;
 }
 .lead-consent {
   display: grid;
@@ -1408,7 +1426,7 @@ Mi nombre es: "><svg viewBox="0 0 24 24" width="19" height="19" fill="currentCol
         openModal(trigger);
         return;
       }
-      if (e.target.closest('[data-lead-modal-close]')) {
+      if (e.target.closest('[data-lead-modal-close]') || e.target === modal) {
         e.preventDefault();
         closeModal();
       }
