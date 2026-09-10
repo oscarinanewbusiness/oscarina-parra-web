@@ -645,28 +645,57 @@ a:hover { opacity: 0.7; }
   cursor: wait;
 }
 .lead-success {
-  margin-top: 20px;
-  padding: 22px;
-  border-radius: 8px;
-  background: var(--zafiro-pale);
-  border: 1px solid rgba(28,92,138,0.12);
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 30px;
+  border-radius: 10px;
+  background: #FFFFFF;
+  border: 1px solid rgba(255,255,255,0.16);
+  box-shadow: var(--shadow-card);
   color: var(--text-body);
+  text-align: center;
 }
-.lead-success[hidden] { display: none; }
+.lead-success[hidden] { display: none !important; }
+.contact__form.is-success {
+  padding: 0;
+  background: transparent;
+  border-color: transparent;
+}
+.contact__form.is-success > :not(.lead-success) {
+  display: none !important;
+}
+.contact__form.is-success > .lead-success {
+  display: block !important;
+}
 .lead-success h3 {
-  font-size: 28px;
+  font-size: clamp(30px, 6vw, 42px);
+  line-height: 1.05;
   color: var(--text-heading);
+  margin: 0;
 }
-.lead-success p { margin: 8px 0 18px; }
+.lead-success p {
+  margin: 14px auto 24px;
+  max-width: 470px;
+  font-size: 16px;
+  line-height: 1.6;
+}
 .lead-success__actions {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 10px;
+  gap: 12px;
 }
 .lead-success__actions .op-btn { width: 100%; }
 .lead-success__sms { background: var(--tinta); color: #fff; }
-.lead-success__sms:hover { opacity: .9; }
-.contact-lead-success { margin-top: 4px; }
+.lead-success__sms:hover { background: #2c2723; opacity: 1; }
+.contact-lead-success { margin-top: 0; }
+
+@media (max-width: 640px) {
+  .lead-success {
+    padding: 26px 18px;
+    border-radius: 8px;
+  }
+}
 
 @media (max-width: 640px) {
   .contact-direct__form { margin-top: 28px; }
@@ -1014,7 +1043,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
           <div class="lead-success__actions">
             <a class="op-btn op-btn--primary lead-go-whatsapp" href="#" target="_blank" rel="noopener">Continuar por WhatsApp</a>
             <a class="op-btn lead-success__sms lead-go-sms" href="#">Enviar mensaje de texto</a>
-            <a class="op-btn op-btn--ghost-dark lead-go-call" href="#">Llamar ahora</a>
+            <a class="op-btn op-btn--ghost lead-go-call" href="#">Llamar ahora</a>
           </div>
         </div>
 
@@ -1089,8 +1118,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 
     function showSuccess(form, data) {
       var success = form.querySelector('.lead-success');
-      var submit = form.querySelector('.lead-submit');
-      var status = form.querySelector('.lead-form-status');
       var message = buildFollowupMessage(data);
       var wa = form.querySelector('.lead-go-whatsapp');
       var sms = form.querySelector('.lead-go-sms');
@@ -1100,15 +1127,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
       if (sms) sms.href = 'sms:' + OSCARINA_PHONE_E164 + '?body=' + encodeURIComponent(message);
       if (call) call.href = 'tel:' + OSCARINA_PHONE_E164;
 
-      Array.prototype.forEach.call(form.elements, function (el) {
-        if (!el.closest || !el.closest('.lead-success')) el.hidden = true;
-      });
-      if (submit) submit.hidden = true;
-      if (status) {
-        status.textContent = 'Datos recibidos correctamente.';
-        status.setAttribute('data-state', 'ok');
+      // Switch the form to a clean success-only state.
+      // This hides inputs, consent label, status text and submit button together,
+      // avoiding leftover labels or disabled buttons on mobile.
+      form.classList.add('is-success');
+
+      if (success) {
+        success.hidden = false;
+        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
-      if (success) success.hidden = false;
     }
 
     async function submitLead(form) {
@@ -1179,6 +1206,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 
     var form = document.getElementById('contactForm');
     if (form) {
+      form.classList.remove('is-success');
       form.addEventListener('submit', function (e) {
         e.preventDefault();
         submitLead(form);
