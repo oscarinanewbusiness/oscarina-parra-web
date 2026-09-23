@@ -1452,7 +1452,8 @@ no es condición de compra.
 
 <div
     class="success-message"
-    id="successMessage">
+    id="successMessage"
+    aria-hidden="true">
 
 <div class="success-icon">
     ✓
@@ -2325,6 +2326,10 @@ const OSCARINA_PHONE_WA='13056079481';
 const PAGE_VARIANT='iul_v2';
 const LEAD_VALUE=20;
 const DEFAULT_MESSAGE='Hola Oscarina, completé el formulario para saber si puedo calificar para un IUL.';
+const THANK_YOU_URL='/iul/gracias/';
+const PENDING_LEAD_KEY='oscarina_iul_v2_pending_lead';
+const LEAD_STATE_KEY='oscarina_iul_v2_lead_state';
+const REQUEST_TIMEOUT_MS=10000;
 let currentStep=1;
 const totalSteps=4;
 const fired=Object.create(null);
@@ -2419,18 +2424,14 @@ function buildFollowupMessage(data){
   if(data.estado)msg+=' Vivo en '+data.estado+'.';
   return msg;
 }
-function showSuccess(data){
-  const multi=document.getElementById('multiForm');
-  const success=document.getElementById('successMessage');
-  const message=buildFollowupMessage(data);
-  const wa=document.querySelector('.lead-go-whatsapp');
-  const sms=document.querySelector('.lead-go-sms');
-  const call=document.querySelector('.lead-go-call');
-  if(wa)wa.href='https://wa.me/'+OSCARINA_PHONE_WA+'?text='+encodeURIComponent(message);
-  if(sms)sms.href='sms:'+OSCARINA_PHONE_E164+'?body='+encodeURIComponent(message);
-  if(call)call.href='tel:'+OSCARINA_PHONE_E164;
-  if(multi)multi.style.display='none';
-  if(success){success.style.display='block';success.scrollIntoView({behavior:'smooth',block:'center'});}
+function saveLeadHandoff(data,state){
+  try{
+    sessionStorage.setItem(PENDING_LEAD_KEY,JSON.stringify(data));
+    sessionStorage.setItem(LEAD_STATE_KEY,JSON.stringify(state||{}));
+  }catch(_){}
+}
+function goToThankYou(){
+  window.location.assign(THANK_YOU_URL);
 }
 
 window.submitForm=async function(){
@@ -2478,27 +2479,47 @@ window.submitForm=async function(){
     attribution:getAttribution()
   };
 
+  // Persist the exact payload temporarily so the thank-you page can
+  // verify/retry the same lead_id if the network response is slow.
+  saveLeadHandoff(data,{confirmed:false,duplicate:false});
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(function(){ controller.abort(); }, REQUEST_TIMEOUT_MS);
+
   try{
     const response=await fetch(LEAD_ENDPOINT,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify(data),
-      credentials:'same-origin'
+      credentials:'same-origin',
+      signal:controller.signal
     });
+    clearTimeout(timeoutId);
+
     let result={};
     try{result=await response.json();}catch(_){}
     if(!response.ok||!result.ok)throw new Error(result.error||'No se pudo guardar el contacto.');
 
-    if(result.duplicate!==true){
-      pushEvent('lead_captured',{
-        lead_source:'qualification_multistep',
-        lead_intent:'iul',
-        value:LEAD_VALUE,
-        currency:'USD'
-      });
-    }
-    showSuccess(data);
+    // Do NOT fire lead_captured here. We hand off the confirmation to
+    // /iul/gracias/ so the redirect cannot interrupt GA4/Google Ads tags.
+    saveLeadHandoff(data,{
+      confirmed:true,
+      duplicate:result.duplicate===true
+    });
+    goToThankYou();
+
   }catch(err){
+    clearTimeout(timeoutId);
+
+    if(err && err.name==='AbortError'){
+      // The backend may already have written the lead but the browser did not
+      // receive the response in time. The thank-you page retries this same
+      // lead_id and uses backend deduplication to confirm storage safely.
+      saveLeadHandoff(data,{confirmed:false,duplicate:false,timed_out:true});
+      goToThankYou();
+      return;
+    }
+
     console.error('Lead capture error:',err);
     setError('No pudimos guardar tus datos. Revisa tu conexión e inténtalo de nuevo.');
     submit.disabled=false; submit.textContent=original;
