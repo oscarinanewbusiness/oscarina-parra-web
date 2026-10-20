@@ -1,4 +1,5 @@
-// /api/lead.js
+
+﻿// /api/lead.js
 // Browser -> this same-origin endpoint -> private Google Apps Script webhook.
 // Keep LEAD_WEBHOOK_SECRET only in Vercel environment variables.
 
@@ -112,6 +113,40 @@ export default async function handler(req, res) {
     if (!r.ok || data.ok !== true) {
       return res.status(502).json({ ok: false, error: 'Lead storage failed' });
     }
+
+    // ===============================================
+    // MAKE - NOTIFICACION SECUNDARIA
+    // Solo para leads nuevos confirmados por Google.
+    // Su fallo no afecta el formulario ni el guardado.
+    // ===============================================
+    if (data.duplicate !== true && process.env.MAKE_LEAD_WEBHOOK_URL) {
+      try {
+        const notifyResponse = await fetch(
+          process.env.MAKE_LEAD_WEBHOOK_URL,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              lead_id: payload.lead_id,
+              nombre: payload.nombre,
+              telefono: payload.telefono,
+              email: payload.email,
+              estado: payload.estado,
+              intended_channel: payload.intended_channel,
+              mensaje: payload.mensaje
+            }),
+            signal: AbortSignal.timeout(1500)
+          }
+        );
+
+        if (!notifyResponse.ok) {
+          console.error('Make notification HTTP:', notifyResponse.status);
+        }
+      } catch (notifyError) {
+        console.error('Make notification failed:', notifyError);
+      }
+    }
+    // FIN MAKE - NOTIFICACION SECUNDARIA
 
     return res.status(200).json({
       ok: true,
